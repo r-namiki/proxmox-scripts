@@ -6,8 +6,11 @@ echo "Container OpenSSH Setup Script"
 echo "=============================="
 
 echo ""
-echo "Installing OpenSSH server..."
-apt-get install -y openssh-server
+echo "Installing OpenSSH server and unattended-upgrades..."
+DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server unattended-upgrades
+echo "Enabling unattended-upgrades..."
+echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
+dpkg-reconfigure -f noninteractive unattended-upgrades
 
 echo ""
 echo "Configuring SSH..."
@@ -152,4 +155,9 @@ systemctl start ssh
 systemctl enable ssh
 
 echo ""
-echo "OpenSSH setup completed successfully!"
+echo "Configuring journald (100MB limit, 30 days retention)..."
+journalctl --vacuum-size=100M
+journalctl --vacuum-time=30d
+
+echo ""
+echo "Setup completed successfully!"
