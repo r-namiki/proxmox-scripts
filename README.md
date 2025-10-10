@@ -10,7 +10,9 @@ SSH公開鍵の設定:
 ```bash
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
-echo "ローカルの公開鍵をここに貼り付け" > ~/.ssh/authorized_keys
+cat > ~/.ssh/authorized_keys << 'EOF'
+ローカルの公開鍵をここに貼り付け
+EOF
 chmod 600 ~/.ssh/authorized_keys
 ```
 
