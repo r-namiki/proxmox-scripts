@@ -1,22 +1,34 @@
 # dotfiles
-前提として`apt install curl`を行う必要があります
+
+## 前提条件
+```bash
+apt update && apt install curl
+```
+
 ## proxmox
 ### host
-`curl -fsSL https://raw.githubusercontent.com/r-namiki/dotfiles/main/proxmox/host/install.sh | bash`
-### container
-`curl -fsSL https://raw.githubusercontent.com/r-namiki/dotfiles/main/proxmox/container/install.sh | bash`
-
-SSH公開鍵の設定:
 ```bash
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh
-cat > ~/.ssh/authorized_keys << 'EOF'
-ローカルの公開鍵をここに貼り付け
-EOF
-chmod 600 ~/.ssh/authorized_keys
+curl -fsSL https://raw.githubusercontent.com/r-namiki/dotfiles/main/proxmox/host/install.sh | bash
 ```
+
+### container
+```bash
+curl -fsSL https://raw.githubusercontent.com/r-namiki/dotfiles/main/proxmox/container/install.sh | bash
+```
+
+## SSH公開鍵の設定
 
 ローカルマシンで公開鍵を確認:
 ```bash
 cat ~/.ssh/id_ed25519.pub
+```
+
+サーバー側で公開鍵を設定:
+```bash
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+cat > ~/.ssh/authorized_keys << 'EOF'
+pubkey-here
+EOF
+chmod 600 ~/.ssh/authorized_keys
 ```
