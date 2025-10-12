@@ -150,6 +150,14 @@ EOF
 echo "SSH configuration completed!"
 
 echo ""
+echo "Setting up SSH public key..."
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDkWXFhrLs6vTlX3eKkpzj7K/FOkX7Ji6NgW/Q71g+j0 r.namiki.leisure@gmail.com" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+echo "SSH public key added!"
+
+echo ""
 echo "Starting and enabling SSH service..."
 systemctl start ssh
 systemctl enable ssh
