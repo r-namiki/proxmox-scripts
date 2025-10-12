@@ -7,11 +7,11 @@ echo "=============================="
 
 echo ""
 echo "Running apt-get update..."
-apt-get update
+sudo apt-get update
 
 echo ""
 echo "Installing Docker prerequisites..."
-apt-get install -y \
+sudo apt-get install -y \
     ca-certificates \
     curl \
     gnupg \
@@ -19,42 +19,42 @@ apt-get install -y \
 
 echo ""
 echo "Adding Docker GPG key..."
-curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 echo ""
 echo "Adding Docker repository..."
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 echo ""
 echo "Updating apt cache..."
-apt-get update
+sudo apt-get update
 
 echo ""
 echo "Installing Docker..."
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 echo ""
 echo "Docker installation completed successfully!"
 
 echo ""
 echo "Installing OpenSSH server and unattended-upgrades..."
-DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server unattended-upgrades
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server unattended-upgrades
 echo "Enabling unattended-upgrades..."
-echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
-dpkg-reconfigure -f noninteractive unattended-upgrades
+echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | sudo debconf-set-selections
+sudo dpkg-reconfigure -f noninteractive unattended-upgrades
 
 echo ""
 echo "Configuring SSH..."
 SSHD_CONFIG="/etc/ssh/sshd_config"
 if [ -f "$SSHD_CONFIG" ]; then
     echo "Backing up $SSHD_CONFIG..."
-    cp "$SSHD_CONFIG" "${SSHD_CONFIG}.backup.$(date +%Y%m%d_%H%M%S)"
+    sudo cp "$SSHD_CONFIG" "${SSHD_CONFIG}.backup.$(date +%Y%m%d_%H%M%S)"
 fi
 
 echo "Updating $SSHD_CONFIG..."
-cat > "$SSHD_CONFIG" <<'EOF'
+sudo tee "$SSHD_CONFIG" > /dev/null <<'EOF'
 # This is the sshd server system-wide configuration file.  See
 # sshd_config(5) for more information.
 
@@ -184,13 +184,13 @@ echo "SSH configuration completed!"
 
 echo ""
 echo "Starting and enabling SSH service..."
-systemctl start ssh
-systemctl enable ssh
+sudo systemctl start ssh
+sudo systemctl enable ssh
 
 echo ""
 echo "Configuring journald (100MB limit, 30 days retention)..."
-journalctl --vacuum-size=100M
-journalctl --vacuum-time=30d
+sudo journalctl --vacuum-size=100M
+sudo journalctl --vacuum-time=30d
 
 echo ""
 echo "Setup completed successfully!"
