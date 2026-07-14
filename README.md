@@ -9,19 +9,19 @@ apt update && apt install curl
 ### host
 Proxmoxホスト環境用のセットアップスクリプト（Docker、OpenSSH、リポジトリ設定）
 ```bash
-curl -fsSL https://raw.githubusercontent.com/r-namiki/dotfiles/main/proxmox/host/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/r-namiki/proxmox-scripts/main/proxmox/host/install.sh | bash
 ```
 
 ### vm
 仮想マシン用のセットアップスクリプト（Docker、OpenSSH、自動アップデート）
 ```bash
-curl -fsSL https://raw.githubusercontent.com/r-namiki/dotfiles/main/proxmox/vm/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/r-namiki/proxmox-scripts/main/proxmox/vm/install.sh | bash
 ```
 
 ### container
 LXCコンテナ用のセットアップスクリプト（OpenSSH、自動アップデート）
 ```bash
-curl -fsSL https://raw.githubusercontent.com/r-namiki/dotfiles/main/proxmox/container/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/r-namiki/proxmox-scripts/main/proxmox/container/install.sh | bash
 ```
 
 ## SSH公開鍵の設定
